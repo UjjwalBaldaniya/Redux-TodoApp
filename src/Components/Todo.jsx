@@ -19,16 +19,18 @@ const Todo = () => {
 
     const handleAddTodo = (e) => {
         e.preventDefault()
-        if (toggle) {
-            dispatch(editTodo(listId, inputField))
-            setToggle(false)
-        } else {
-            dispatch(addTodo(inputField))
+        if (inputField) {
+            if (toggle) {
+                dispatch(editTodo(listId, inputField))
+                setToggle(false)
+            } else {
+                dispatch(addTodo(inputField))
+            }
+            setInputField("")
         }
-        setInputField("")
     }
 
-    const handleEdit = (id, inputField) => {
+    const handleEdit = (id) => {
         const newInputField = listSelector[id]
         setInputField(newInputField)
         setListId(id)
@@ -50,8 +52,8 @@ const Todo = () => {
                         <ul key={index}>
                             <li>{element}</li>
                             <div className="icons">
-                                <span onClick={() => handleEdit(index)}><BiSolidEdit color="white" fontSize="1.5em" cursor="pointer" /></span>
-                                <span onClick={() => dispatch(deleteTodo(index))}><AiFillDelete color="white" fontSize="1.5em" cursor="pointer" /></span>
+                                <button className="edit-btn" onClick={() => handleEdit(index)}><BiSolidEdit color="white" fontSize="1.5em" cursor="pointer" /></button>
+                                <button className="delete-btn" disabled={toggle ? true : false} onClick={() => dispatch(deleteTodo(index))}><AiFillDelete color="white" fontSize="1.5em" cursor="pointer" /></button>
                             </div>
                         </ul>
                     ))}

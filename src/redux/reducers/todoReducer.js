@@ -1,16 +1,18 @@
+import { ADD_TODO, CLEAR_TODO, DELETE_TODO, EDIT_TODO } from "../constants";
+
 const initialState = {
   list: [],
 };
 
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TODO":
+    case ADD_TODO:
       return {
         ...state,
         list: [...state.list, action.payload],
       };
 
-    case "DELETE_TODO":
+    case DELETE_TODO:
       const newList = state.list.filter(
         (element, index) => index !== action.payload
       );
@@ -19,15 +21,15 @@ const todoReducer = (state = initialState, action) => {
         list: newList,
       };
 
-    case "EDIT_TODO":
+    case EDIT_TODO:
       const UpdateValue = state.list;
       UpdateValue.splice(action.payload.id, 1, action.payload.editValue);
       return {
         ...state,
-        list: [...UpdateValue]
+        list: [...UpdateValue],
       };
 
-    case "CLEAR_TODO":
+    case CLEAR_TODO:
       return {
         ...state,
         list: [],
